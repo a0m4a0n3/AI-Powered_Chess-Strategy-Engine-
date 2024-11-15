@@ -21,7 +21,10 @@ def evaluate(board, maximizing_color):
     :param maximizing_color: color associated with maximizing player (tuple)
     :return: integer representing boards value
     """
-    pass    # YOUR CODE GOES HERE # DELETE THIS LINE #
+    if maximizing_color == WHITE: 
+        return board.whiteScore - board.blackScore
+    else:
+        return board.blackScore - board.whiteScore  
 
 
 def minimax(board, depth, alpha, beta, maximizing_player, maximizing_color):
@@ -35,4 +38,34 @@ def minimax(board, depth, alpha, beta, maximizing_player, maximizing_color):
     :param maximizing_color: color of the AI using this function to determine a move (tuple)
     :return: tuple representing move and eval; format: (move, eval)
     """
-    pass    # YOUR CODE GOES HERE # DELETE THIS LINE #
+    if depth ==0 or board.gameover:
+        return None, evaluate(board,maximizing_color)
+    moves = board.get_moves()
+    best_move = random.choice(moves)
+
+    if maximizing_player:
+        max_eval = -inf
+        for move in moves:
+            board.make_move(move[0],move[1])
+            current_eval = minimax(board,depth-1,alpha,beta,False, maximizing_color)[1]
+            board.unmake_move()
+            if current_eval > max_eval:
+                max_eval = current_eval
+                best_move = move
+            alpha = max(alpha, current_eval)
+            if beta <= alpha:
+                break
+        return best_move, max_eval
+    else:
+        min_eval = inf
+        for move in moves:
+            board.make_move(move[0],move[1])
+            current_eval = minimax(board,depth-1,alpha,beta,True, maximizing_color)[1]
+            board.unmake_move()
+            if current_eval < min_eval:
+                min_eval = current_eval
+                best_move = move
+            beta = min(beta, current_eval)
+            if beta <= alpha:
+                break
+        return best_move, min_eval
