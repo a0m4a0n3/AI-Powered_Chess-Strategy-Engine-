@@ -101,7 +101,7 @@ class Game:
                                          widget_font=pygame_menu.font.FONT_OPEN_SANS_BOLD,
                                          cursor_color=WHITE)
 
-        menu = pygame_menu.Menu(height=SCREEN_HEIGHT, width=SCREEN_WIDTH, title="", theme=theme, menu_position=(50, 0))
+        menu = pygame_menu.Menu(height=SCREEN_HEIGHT, width=SCREEN_WIDTH, title="", theme=theme)
         menu.add_label("ChessAI", align=pygame_menu.locals.ALIGN_CENTER, font_name=pygame_menu.font.FONT_OPEN_SANS_BOLD,
                        font_color=LARGE_TEXT_COLOR, font_size=90, margin=(0, 50))
         menu.add_text_input('Name : ', default=self.p1_name, maxchar=10, onchange=self.set_name)
